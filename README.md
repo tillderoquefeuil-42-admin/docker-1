@@ -1,2 +1,2 @@
 # docker-1
-Docker-1 a pour but de faire manipuler docker et docker-machine, la base pour comprendre le principe de la containerisation de services.
+The aim of the Docker-1 project is to make you handle docker and docker-machine, the bases to understand the idea of containerization of services. You can see this project as an initiation.
