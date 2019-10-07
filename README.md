@@ -11,6 +11,9 @@ INSIDE_PORT | 80
 
 ## basic commands
 ```diff
+
+##### Dockerfile, image & container #####
+
 # Create image using this directory's Dockerfile
 docker build -t <CONTAINER_NAME> .
 
@@ -61,10 +64,39 @@ docker push username/repository:tag
 
 # Run image from a registry
 docker run username/repository:tag
+
+
+##### docker-compose.yml, stack & service #####
+
+# List stacks or apps
+docker stack ls
+
+# Run the specified Compose file
+docker stack deploy -c <composefile> <appname>
+
+# List running services associated with an app
+docker service ls
+
+# List tasks associated with an app
+docker service ps <service>
+
+# Inspect task or container
+docker inspect <task or container>
+
+# List container IDs
+docker container ls -q
+
+# Tear down an application
+docker stack rm <appname>
+
+# Take down a single node swarm from the manager
+docker swarm leave --force
+
 ```
 
 ## initialize simple container (nodejs)
 
+1. Dockerfile, image & container
 ```diff
 $ cd ~/simple-container
 $ cat Dockerfile
@@ -128,4 +160,33 @@ $ sudo docker tag node-docker tillderoquefeuil/node-docker:v0.0.1
 
 # push image
 $ sudo docker push tillderoquefeuil/node-docker:v0.0.1
+```
+
+2. docker-compose.yml, stack & service
+```diff
+$ cd ~/simple-container
+$ cat docker-compose.yml
+> version: "3"
+> services:
+>   web:
+>     # replace username/repo:tag with your name and image details
+>     image: tillderoquefeuil/node-docker:v0.0.2
+>     deploy:
+>       replicas: 2
+>       resources:
+>         limits:
+>           cpus: "0.1"
+>           memory: 50M
+>       restart_policy:
+>         condition: on-failure
+>     ports:
+>       - "4444:8080"
+>     networks:
+>       - webnet
+> networks:
+>   webnet:
+
+$ sudo docker swarm init
+$ sudo docker stack deploy -c docker-compose.yml getstartedlab
+
 ```
