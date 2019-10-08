@@ -12,6 +12,11 @@ INSIDE_PORT | 80
 ## basic commands
 ```diff
 
+# Log in this CLI session using your Docker credentials
+docker login -u <USERNAME>
+```
+
+```diff
 ##### Dockerfile, image & container #####
 
 # Create image using this directory's Dockerfile
@@ -53,9 +58,6 @@ docker image rm <image id>
 # Remove all images from this machine
 docker image rm $(docker image ls -a -q)
 
-# Log in this CLI session using your Docker credentials
-docker login
-
 # Tag <image> for upload to registry
 docker tag <image> username/repository:tag
 
@@ -64,8 +66,9 @@ docker push username/repository:tag
 
 # Run image from a registry
 docker run username/repository:tag
+```
 
-
+```diff
 ##### docker-compose.yml, stack & service #####
 
 # List stacks or apps
@@ -91,7 +94,67 @@ docker stack rm <appname>
 
 # Take down a single node swarm from the manager
 docker swarm leave --force
+```
 
+```diff
+##### Swarms & docker-machine #####
+
+# Create a VM
+docker-machine create --driver virtualbox <vm1name>
+
+# View basic information about your node
+docker-machine env <vm1name>
+
+# List the nodes in your swarm
+docker-machine ssh <vm1name> "docker node ls"
+
+# Inspect a node
+docker-machine ssh <vm1name> "docker node inspect <node ID>"
+
+# View join token
+docker-machine ssh <vm1name> "docker swarm join-token -q worker"
+
+# Open an SSH session with the VM; type "exit" to end
+docker-machine ssh <vm1name>
+
+# View nodes in swarm (while logged on to manager)
+docker node ls
+
+# Make the worker leave the swarm
+docker-machine ssh <vm2name> "docker swarm leave"
+
+# Make master leave, kill swarm
+docker-machine ssh <vm1name> "docker swarm leave -f"
+
+# list VMs, asterisk shows which VM this shell is talking to
+docker-machine ls
+
+# Start a VM that is currently not running
+docker-machine start <vm1name>
+
+# show environment variables and command for <vm1name>
+docker-machine env <vm1name>
+
+# Mac command to connect shell to <vm1name>
+eval $(docker-machine env <vm1name>)
+
+# Deploy an app; command shell must be set to talk to manager (<vm1name>), uses local Compose file
+docker stack deploy -c <file> <app>
+
+# Copy file to node's home dir (only required if you use ssh to connect to manager and deploy the app)
+docker-machine scp docker-compose.yml <vm1name>:~
+
+# Deploy an app using ssh (you must have first copied the Compose file to <vm1name>)
+docker-machine ssh <vm1name> "docker stack deploy -c <file> <app>"
+
+# Disconnect shell from VMs, use native docker
+eval $(docker-machine env -u)
+
+# Stop all running VMs
+docker-machine stop $(docker-machine ls -q)
+
+# Delete all VMs and their disk images
+docker-machine rm $(docker-machine ls -q)
 ```
 
 ## initialize simple container (nodejs)
@@ -150,16 +213,16 @@ $ cat server.js
 > console.log(`Running on http://${HOST}:${PORT}`);
 
 # build
-$ sudo docker build -t node-docker .
+$ sudo docker build -t hello-node .
 
 # run and check on http://localhost:4444
-$ sudo docker run -d -p 4444:8080 node-docker
+$ sudo docker run -d -p 4444:8080 hello-node
 
 # commit image
-$ sudo docker tag node-docker tillderoquefeuil/node-docker:v0.0.1
+$ sudo docker tag hello-node tillderoquefeuil/hello-node:v0.0.1
 
 # push image
-$ sudo docker push tillderoquefeuil/node-docker:v0.0.1
+$ sudo docker push tillderoquefeuil/hello-node:v0.0.1
 ```
 
 2. docker-compose.yml, stack & service
@@ -170,7 +233,7 @@ $ cat docker-compose.yml
 > services:
 >   web:
 >     # replace username/repo:tag with your name and image details
->     image: tillderoquefeuil/node-docker:v0.0.2
+>     image: tillderoquefeuil/hello-node:v0.0.1
 >     deploy:
 >       replicas: 2
 >       resources:
@@ -187,6 +250,5 @@ $ cat docker-compose.yml
 >   webnet:
 
 $ sudo docker swarm init
-$ sudo docker stack deploy -c docker-compose.yml getstartedlab
-
+$ sudo docker stack deploy -c docker-compose.yml hello-node
 ```
