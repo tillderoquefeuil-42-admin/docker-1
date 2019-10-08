@@ -2,31 +2,24 @@
 The aim of the Docker-1 project is to make you handle docker and docker-machine, the bases to understand the idea of containerization of services. You can see this project as an initiation.
 
 
-## variables
-| name | value |
-| --- | --- |
-| CONTAINER_NAME | friendlyhello |
-| OUTSIDE_PORT | 4000 |
-| INSIDE_PORT | 80 |
-
 ## basic commands
 ```diff
 
 # Log in this CLI session using your Docker credentials
-docker login -u <USERNAME>
+docker login -u <username>
 ```
 
 ```diff
 ##### Dockerfile, image & container #####
 
 # Create image using this directory's Dockerfile
-docker build -t <CONTAINER_NAME> .
+docker build -t <container_name> .
 
-# Run "<CONTAINER_NAME>" mapping port <OUTSIDE_PORT> to <INSIDE_PORT>
-docker run -p <OUTSIDE_PORT>:<INSIDE_PORT> <CONTAINER_NAME>
+# Run "<container_name>" mapping port <outside_port> to <inside_port>
+docker run -p <outside_port>:<inside_port> <container_name>
 
 # Same thing, but in detached mode
-docker run -d -p <OUTSIDE_PORT>:<INSIDE_PORT> <CONTAINER_NAME>
+docker run -d -p <outside_port>:<inside_port> <container_name>
 
 # List all running containers
 docker container ls
