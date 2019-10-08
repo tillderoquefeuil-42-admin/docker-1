@@ -3,11 +3,11 @@ The aim of the Docker-1 project is to make you handle docker and docker-machine,
 
 
 ## variables
-name | value
-------------
-CONTAINER_NAME | friendlyhello
-OUTSIDE_PORT | 4000
-INSIDE_PORT | 80
+| name | value |
+| ------------ |
+| CONTAINER_NAME | friendlyhello |
+| OUTSIDE_PORT | 4000 |
+| INSIDE_PORT | 80 |
 
 ## basic commands
 ```diff
