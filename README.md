@@ -104,6 +104,9 @@ docker-machine ssh <vm1name> "docker node ls"
 # Inspect a node
 docker-machine ssh <vm1name> "docker node inspect <node ID>"
 
+# INIT
+docker swarm init --advertise-addr <vm1name ip>
+
 # View join token
 docker-machine ssh <vm1name> "docker swarm join-token -q worker"
 
