@@ -153,6 +153,58 @@ docker-machine stop $(docker-machine ls -q)
 docker-machine rm $(docker-machine ls -q)
 ```
 
+## Dockerfile
+
+```diff
+# can be used before FROM cmd
+# usage docker build --build-arg variable_name=value .
+ARG <variable_name>=<value>
+
+# image that you build
+FROM <image>
+
+# run cmd on top of the image on BUILD
+RUN <cmd>
+
+# run cmd on RUN ?
+CMD <cmd>
+ENTRYPOINT command param1 param2
+
+# key-value pair
+# labels list : docker inspect
+LABEL <key>=<value> <key>=<value> <key>=<value> ...
+
+# documentation about specified network ports listen by the container
+EXPOSE <port> [<port>/<protocol>...]
+
+# environment variable setting
+ENV <key>=<value> ...
+
+# src to dest copy (in IMAGE)
+ADD [--chown=<user>:<group>] <src>... <dest>
+
+# src to dest copy (in CONTAINER)
+COPY [--chown=<user>:<group>] <src>... <dest>
+
+# mount point creation
+VOLUME ["/data"]
+
+# user name setting
+USER <user>[:<group>]
+
+# working directory for RUN/CMD/ENTRYPOINT/COPY/ADD
+WORKDIR /path/to/workdir
+
+# trigger instruction when the image is used as the base for another build
+ONBUILD [INSTRUCTION]
+
+# STOPSIGNAL signal
+STOPSIGNAL signal
+
+
+```
+
+
 ## initialize simple container (nodejs)
 
 1. Dockerfile, image & container
