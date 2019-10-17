@@ -1,9 +1,10 @@
 #!/bin/sh
-echo "Starting build..."
+echo "docker build"
 docker build -t ex01 .
 
-echo "Build finished. Running..."
+echo "docker run"
 docker run -d --name teamspeak --rm -p 9987:9987/udp -p 10011:10011 -p 30033:30033 ex01
 
-echo "Server is running. Connect with local client to $(docker-machine ip Char)."
-echo "When finished, run \`docker stop teamspeak\`"
+echo "server is running"
+echo "connect with local client to $(docker-machine ip Char)"
+echo "to stop run \`docker stop teamspeak\`"
