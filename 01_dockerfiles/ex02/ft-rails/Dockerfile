@@ -1,17 +1,15 @@
-FROM ruby:2.6.5
+FROM ruby:2.5.1
 
-# APT-GET
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y build-essential libpq-dev nodejs sqlite3 gem
+# APT
+RUN apt-get update
+# RUN apt-get upgrade -y
+# RUN apt-get install -y build-essential libpq-dev nodejs sqlite3
 
 # GEM
-RUN gem install bundler --no-document
-RUN gem install rails --no-document
-RUN gem install rake -v 12.3.1 --no-document
+# RUN gem install rails
 
-COPY app /opt/app
-WORKDIR /opt/app
+# rails new blog
+# cd blog
+# rails server
 
-RUN bundle install
-
-COPY /app /home/app
+ENTRYPOINT bash
