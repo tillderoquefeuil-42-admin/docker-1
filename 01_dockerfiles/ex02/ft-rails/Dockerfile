@@ -15,7 +15,7 @@ RUN npm install -g yarn
 RUN gem install rails bundler
 
 # CHECK VERSIONS
-RUN ruby -v && nodejs -v && rails -v && yarn -v
+# RUN ruby -v && nodejs -v && rails -v && yarn -v
 
 # COPY APP
 ONBUILD COPY app/ /opt/app
@@ -26,6 +26,3 @@ ONBUILD RUN bundle install
 
 # DB MIGRATION
 ONBUILD RUN rails db:migrate
-
-# ENTRYPOINT bash
-# ENTRYPOINT rails s -b 0.0.0.0 -p 3000
