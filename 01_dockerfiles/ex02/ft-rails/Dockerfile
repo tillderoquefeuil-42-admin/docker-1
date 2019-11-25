@@ -12,7 +12,7 @@ RUN apt-get install -y nodejs
 RUN npm install -g yarn
 
 # GEM
-RUN gem install rails
+RUN gem install rails bundler
 
 # CHECK VERSIONS
 RUN ruby -v && nodejs -v && rails -v && yarn -v
@@ -23,6 +23,7 @@ RUN ruby -v && nodejs -v && rails -v && yarn -v
 COPY app/ /home/
 
 WORKDIR /home/app
+RUN bundler install
 
-ENTRYPOINT bash
-# ENTRYPOINT rails s -b 0.0.0.0 -p 3000
+# ENTRYPOINT bash
+ENTRYPOINT rails s -b 0.0.0.0 -p 3000
