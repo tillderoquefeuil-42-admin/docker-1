@@ -9,8 +9,16 @@ echo $YEL"Docker-1 | 01_dockerfiles | ex03"$RST
 echo $YEL"\n\nBUILD wdtfs"$RST
 echo "      docker build --build-arg VM_IP=$(docker-machine ip Char) -t wdtfs .\n"
 
-echo $YEL"Build image (y) or skip (enter)?"$RST
-read RESPONSE
+
+if [ "$1" != "-y" ]
+then
+    echo $YEL"Build image (y) or skip (enter)?"$RST
+    read RESPONSE
+else
+    echo $YEL"Building image"$RST
+    RESPONSE="y"
+fi
+
 if [ "$RESPONSE" = "y" ]
 then
     docker build --build-arg VM_IP=$(docker-machine ip Char) -t wdtfs .
@@ -20,12 +28,20 @@ RESPONSE="n"
 
 
 echo $YEL"\n\nRUN wdtfs"$RST
-echo "      docker run -it -p 8080:80 -p 8022:22 -p 8443:443 --privileged wdtfs\n"
+echo "      docker run -it --rm --name wdtfs -p 8080:80 -p 8022:22 -p 443:443 --privileged wdtfs\n"
 
-echo $YEL"Run image (y) or skip (enter)?"$RST
-read RESPONSE
+if [ "$1" != "-y" ]
+then
+    echo $YEL"Run image (y) or skip (enter)?"$RST
+    read RESPONSE
+else
+    echo $YEL"Running image"$RST
+    RESPONSE="y"
+fi
+
 if [ "$RESPONSE" = "y" ]
 then
-    echo $GRN"\n\nLETS GO!."$RST
-    docker run -it -p 8080:80 -p 8022:22 -p 8443:443 --privileged wdtfs
+    echo $GRN"\n\nLETS GO!"$RST
+    docker run -it --rm --name wdtfs -p 8080:80 -p 8022:22 -p 443:443 --privileged wdtfs
+
 fi
