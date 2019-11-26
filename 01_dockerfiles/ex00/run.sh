@@ -9,8 +9,15 @@ echo $YEL"Docker-1 | 01_dockerfiles | ex00"$RST
 echo $YEL"\n\nBUILD ex00"$RST
 echo "      docker build -t ex00 .\n"
 
-echo $YEL"Build image (y) or skip (enter)?"$RST
-read RESPONSE
+if [ "$1" != "-y" ]
+then
+    echo $YEL"Build image (y) or skip (enter)?"$RST
+    read RESPONSE
+else
+    echo $YEL"Building image"$RST
+    RESPONSE="y"
+fi
+
 if [ "$RESPONSE" = "y" ]
 then
     docker build -t ex00 .
@@ -22,8 +29,15 @@ RESPONSE="n"
 echo $YEL"\n\nRUN ex00"$RST
 echo "      docker run -it --name ex00 --rm ex00\n"
 
-echo $YEL"Run image (y) or skip (enter)?"$RST
-read RESPONSE
+if [ "$1" != "-y" ]
+then
+    echo $YEL"Run image (y) or skip (enter)?"$RST
+    read RESPONSE
+else
+    echo $YEL"Running image"$RST
+    RESPONSE="y"
+fi
+
 if [ "$RESPONSE" = "y" ]
 then
     docker run -it --name ex00 --rm ex00

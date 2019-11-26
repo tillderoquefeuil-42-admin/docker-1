@@ -9,8 +9,15 @@ echo $YEL"Docker-1 | 01_dockerfiles | ex02"$RST
 echo $YEL"\n\nRAILS APP CONTAINER IMAGE"$RST
 echo "      docker build -t ft-rails:on-build -f ft-rails/Dockerfile .\n"
 
-echo $YEL"Build image (y) or skip (enter)?"$RST
-read RESPONSE
+if [ "$1" != "-y" ]
+then
+    echo $YEL"Build image (y) or skip (enter)?"$RST
+    read RESPONSE
+else
+    echo $YEL"Building image"$RST
+    RESPONSE="y"
+fi
+
 if [ "$RESPONSE" = "y" ]
 then
     docker build -t ft-rails:on-build -f ft-rails/Dockerfile .
@@ -23,8 +30,15 @@ RESPONSE="n"
 echo $YEL"\n\nAPP IMAGE"$RST
 echo "      docker build -t app .\n"
 
-echo $YEL"Build image (y) or skip (enter)?"$RST
-read RESPONSE
+if [ "$1" != "-y" ]
+then
+    echo $YEL"Build image (y) or skip (enter)?"$RST
+    read RESPONSE
+else
+    echo $YEL"Building image"$RST
+    RESPONSE="y"
+fi
+
 if [ "$RESPONSE" = "y" ]
 then
     docker build -t app .
@@ -36,8 +50,15 @@ RESPONSE="n"
 echo $YEL"\n\nAPP RUNNING"$RST
 echo "      docker run -d --name app -it --rm -p 3000:3000 app\n"
 
-echo $YEL"Run the app (y) or skip (enter)?"$RST
-read RESPONSE
+if [ "$1" != "-y" ]
+then
+    echo $YEL"Run the app (y) or skip (enter)?"$RST
+    read RESPONSE
+else
+    echo $YEL"Running image"$RST
+    RESPONSE="y"
+fi
+
 if [ "$RESPONSE" = "y" ]
 then
     docker run -d --name app -it --rm -p 3000:3000 app
