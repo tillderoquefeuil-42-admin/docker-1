@@ -1,1 +1,1 @@
-docker-machine ls | grep "Char"
+docker-machine ip Char
