@@ -51,7 +51,15 @@ then
 
     echo $GRN"\n\nex01 is now running."$RST
     echo $GRN"connect with local client to $(docker-machine ip Char)"$RST
-    echo $GRN"to stop run :"$RST
+
+    echo $YEL"\nTeamspeak opening"$RST
+    open -a "/Applications/TeamSpeak 3 Client.app"
+
+    echo $YEL"\nHit Cmd-s or go to 'Connections > Connect'"$RST1
+    echo $YEL"Fill 'server Nickname or Address' with $(docker-machine ip Char)"$RST1
+    echo $GRN"Click on connect and you're ready to go!"$RST
+
+    echo $GRN"\nto stop run :"$RST
     echo "      docker stop teamspeak"
 fi
 
