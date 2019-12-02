@@ -1,2 +1,1 @@
-echo "\x1B[1;31m\nWatch out!\nThis command can't be run like this!\nYou have to run 'eval \$(docker-machine env Char)' in your terminal\nTo see if it works, run 'docker-machine ls'\x1B[0m"
 eval $(docker-machine env Char)
