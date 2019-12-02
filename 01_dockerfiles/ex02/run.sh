@@ -9,7 +9,7 @@ echo $YEL"Docker-1 | 01_dockerfiles | ex02"$RST
 echo $YEL"\n\nRAILS APP CONTAINER IMAGE"$RST
 echo "      docker build -t ft-rails:on-build -f ft-rails/Dockerfile .\n"
 
-if [ "$1" != "-y" ]
+if [ "$1" != "-y" ] && [ "$1" != "--image-only" ]
 then
     echo $YEL"Build image (y) or skip (enter)?"$RST
     read RESPONSE
@@ -30,7 +30,7 @@ RESPONSE="n"
 echo $YEL"\n\nAPP IMAGE"$RST
 echo "      docker build -t app .\n"
 
-if [ "$1" != "-y" ]
+if [ "$1" != "-y" ] && [ "$1" != "--image-only" ]
 then
     echo $YEL"Build image (y) or skip (enter)?"$RST
     read RESPONSE
