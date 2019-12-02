@@ -9,9 +9,6 @@ IP_ADDR=$(ipconfig getifaddr en0)
 VPN_USER="tde-roqu"
 OVPN_DATA="ovpn-data-volume"
 
-echo $YEL""$RST
-echo $GRN""$RST
-
 echo $YEL"OPENVPN WITH DOCKER\n\n"$RST
 
 echo $YEL"Creation of the data volume container"$RST
@@ -30,7 +27,8 @@ echo $YEL"Creation of the user"$RST
 docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kylemanna/openvpn easyrsa build-client-full $VPN_USER nopass
 
 echo $YEL"Generation of user's config file"$RST
-docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn_getclient $VPN_USER > $VPN_USER.ovpn
+mkdir -p users-config
+docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn_getclient $VPN_USER > users-config/$VPN_USER.ovpn
 
 
 echo $GRN"\n\nYour VPN is ready to go!"$RST
