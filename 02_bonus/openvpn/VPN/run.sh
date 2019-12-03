@@ -10,7 +10,7 @@ MACHINE_IP=$(docker-machine ip Char)
 echo $YEL"OPENVPN WITH DOCKER\n\n"$RST
 
 echo $YEL"Creation of the container image"$RST
-sudo docker create --name=openvpn-as \
+docker create --name=openvpn-as \
     --restart=always \
     -v /sgoinfre/goinfre/Perso/tde-roqu/docker/openvpn-as/config:/config \
     -e INTERFACE=ens3 \
