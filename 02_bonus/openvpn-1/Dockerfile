@@ -11,8 +11,4 @@ RUN install -o root -m 400 $VPN_USER.ovpn /etc/openvpn/$VPN_USER.conf
 RUN echo AUTOSTART=all | tee -a /etc/default/openvpn
 RUN /etc/init.d/openvpn restart
 
-# service openvpn start
-# openvpn tde-roqu.ovpn
-# curl icanhazip.com # 62.210.33.67
-
 ENTRYPOINT bash
