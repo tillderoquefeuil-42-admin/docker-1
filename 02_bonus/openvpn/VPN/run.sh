@@ -11,6 +11,7 @@ echo $YEL"OPENVPN WITH DOCKER\n\n"$RST
 
 echo $YEL"Creation of the container image"$RST
 docker create --name=openvpn-as \
+    --name openvpn \
     --restart=always \
     -v /sgoinfre/goinfre/Perso/tde-roqu/docker/openvpn-as/config:/config \
     -e INTERFACE=ens3 \
@@ -25,8 +26,11 @@ docker start openvpn-as
 echo $YEL"\nChange admin password"$RST
 docker exec -it openvpn-as passwd admin
 
-echo $YEL"\nYou can log here as admin (admin/new_password)"$RST
+echo $GRN"\nYou can log here as admin (admin/new_password)"$RST
 echo "https://$MACHINE_IP:943/admin"
 
-echo $YEL"\nYou can log here as client"$RST
+echo $GRN"\nYou can log here as client"$RST
 echo "https://$MACHINE_IP:943"
+
+echo $GRN"\nto stop run :"$RST
+echo "      docker stop openvpn"
