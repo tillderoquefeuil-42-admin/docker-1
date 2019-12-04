@@ -11,7 +11,6 @@ echo $YEL"OPENVPN WITH DOCKER\n\n"$RST
 
 echo $YEL"Creation of the container image"$RST
 docker create --name=openvpn-as \
-    --name openvpn \
     --restart=always \
     -v /sgoinfre/goinfre/Perso/tde-roqu/docker/openvpn-as/config:/config \
     -e INTERFACE=ens3 \
@@ -33,4 +32,4 @@ echo $GRN"\nYou can log here as client"$RST
 echo "https://$MACHINE_IP:943"
 
 echo $GRN"\nto stop run :"$RST
-echo "      docker stop openvpn"
+echo "      docker stop openvpn-as"
